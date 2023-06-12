@@ -1,0 +1,19 @@
+{
+  "name": "product-catalog-management",
+  "version": "1.0.0",
+  "description": "a product catalog management app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagoaalves/product-catalog-management.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiagoaalves/product-catalog-management/issues"
+  },
+  "homepage": "https://github.com/tiagoaalves/product-catalog-management#readme"
+}
