@@ -2,7 +2,6 @@ const pool = require("../db.js");
 const logger = require("../logger.js");
 
 const getAllProducts = (request, response) => {
-  logger.error();
   pool.query("SELECT * FROM products", (error, results) => {
     if (error) {
       logger.error(error);
