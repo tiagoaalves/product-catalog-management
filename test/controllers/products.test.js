@@ -11,7 +11,8 @@ const {
 
 jest.mock("../../app/db");
 
-afterEach(() => {
+beforeEach(() => {
+  jest.resetModules();
   jest.clearAllMocks();
 });
 
@@ -21,6 +22,25 @@ describe("getAllProducts", () => {
     json: jest.fn(),
     send: jest.fn(),
   };
+
+  it("should handle an error and send a 500 response", () => {
+    const mockError = new Error("An error occurred!");
+    const mockReq = {};
+
+    pool.query.mockImplementationOnce((query, callback) => {
+      callback(mockError);
+    });
+
+    getAllProducts(mockReq, mockResponse);
+
+    expect(pool.query).toHaveBeenCalledTimes(1);
+    expect(pool.query).toHaveBeenCalledWith(
+      "SELECT * FROM products",
+      expect.any(Function)
+    );
+    expect(mockResponse.status).toHaveBeenCalledWith(500);
+    expect(mockResponse.send).toHaveBeenCalledWith(mockError.message);
+  });
   it("should return all products when the query is successful", () => {
     const mockResults = {
       rows: [
@@ -43,25 +63,6 @@ describe("getAllProducts", () => {
     );
     expect(mockResponse.status).toHaveBeenCalledWith(200);
     expect(mockResponse.json).toHaveBeenCalledWith(mockResults.rows);
-  });
-
-  it("should handle an error and send a 500 response", () => {
-    const mockError = new Error("An error occurred!");
-    const mockReq = {};
-
-    pool.query.mockImplementationOnce((query, callback) => {
-      callback(mockError);
-    });
-
-    getAllProducts(mockReq, mockResponse);
-
-    expect(pool.query).toHaveBeenCalledTimes(1);
-    expect(pool.query).toHaveBeenCalledWith(
-      "SELECT * FROM products",
-      expect.any(Function)
-    );
-    expect(mockResponse.status).toHaveBeenCalledWith(500);
-    expect(mockResponse.send).toHaveBeenCalledWith(mockError.message);
   });
 });
 

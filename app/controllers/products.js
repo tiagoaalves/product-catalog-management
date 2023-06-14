@@ -1,15 +1,22 @@
 const pool = require("../db.js");
 const logger = require("../logger.js");
+const nodeCache = require("node-cache");
+const cache = new nodeCache({ stdTTL: 10 });
 
 const getAllProducts = (request, response) => {
-  pool.query("SELECT * FROM products", (error, results) => {
-    if (error) {
-      logger.error(error);
-      response.status(500).send(error.message);
-    } else {
-      response.status(200).json(results.rows);
-    }
-  });
+  if (cache.has("products")) {
+    response.status(200).json(cache.get("products"));
+  } else {
+    pool.query("SELECT * FROM products", (error, results) => {
+      if (error) {
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        cache.set("products", results.rows);
+        response.status(200).json(results.rows);
+      }
+    });
+  }
 };
 
 const getProductsById = (request, response) => {
