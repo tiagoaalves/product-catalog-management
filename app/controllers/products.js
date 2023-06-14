@@ -24,6 +24,7 @@ const getProductsById = (request, response) => {
   );
 };
 
+//I assumed categories would be searched by category title and not id
 const getProductsByCategory = (request, response) => {
   const category = request.params.category;
 
