@@ -61,9 +61,13 @@ const updateProductCategory = (request, response) => {
         logger.error(error);
         response.status(500).send(error.message);
       } else {
-        response
-          .status(200)
-          .send(`Category successfully updated for product ${product_id}`);
+        if (results.rowCount > 0) {
+          response
+            .status(200)
+            .send(`Category successfully updated for product ${product_id}`);
+        } else {
+          response.status(200).send("No changes done");
+        }
       }
     }
   );
@@ -81,7 +85,11 @@ const updateProduct = (request, response) => {
         logger.error(error);
         response.status(500).send(error.message);
       } else {
-        response.status(200).send(`Product modified with ID: ${product_id}`);
+        if (results.rowCount > 0) {
+          response.status(200).send(`Product modified with ID: ${product_id}`);
+        } else {
+          response.status(200).send("No changes done");
+        }
       }
     }
   );
@@ -117,7 +125,11 @@ const deleteProduct = (request, response) => {
         logger.error(error);
         response.status(500).send(error.message);
       } else {
-        response.status(200).send(`User deleted with ID: ${product_id}`);
+        if (results.rowCount > 0) {
+          response.status(200).send(`User deleted with ID: ${product_id}`);
+        } else {
+          response.status(200).send("No changes done");
+        }
       }
     }
   );
