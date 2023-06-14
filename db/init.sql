@@ -18,12 +18,12 @@ CREATE TABLE products(
 	  REFERENCES categories(category_id)
 );
 
-INSERT INTO categories(category_id, title) VALUES 
-    (1, 'fruits and vegetables'),
-    (2, 'pastry');
+INSERT INTO categories(title) VALUES 
+    ('fruits and vegetables'),
+    ('pastry');
 
-INSERT INTO products(product_id, description, price, category_id) VALUES 
-    (1, 'oranges', 3.99, 1),
-    (2, 'apples', 2.99, 1),
-    (3, 'croissants', 0.99, 2),
-    (4, 'pastel de nata', 0.99, 2);
+INSERT INTO products(description, price, category_id) VALUES 
+    ('oranges', 3.99, 1),
+    ('apples', 2.99, 1),
+    ('croissants', 0.99, 2),
+    ('pastel de nata', 0.99, 2);
