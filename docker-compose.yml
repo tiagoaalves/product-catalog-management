@@ -1,5 +1,8 @@
 version: "3"
 services:
+  tests:
+    build: .
+    command: npm test
   app:
     restart: on-failure
     build: .
