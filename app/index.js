@@ -2,11 +2,12 @@ const express = require("express");
 var bodyParser = require("body-parser");
 const app = express();
 const pool = require("./db.js");
+const logger = require("./logger.js");
 app.use(bodyParser.json());
 
 pool.connect(function (err) {
   if (err) throw err;
-  console.log("Connected to db!");
+  logger.info("Connected to db!");
 });
 
 app.get("/", (req, res) => {
