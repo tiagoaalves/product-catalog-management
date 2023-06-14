@@ -1,11 +1,15 @@
 const pool = require("../db.js");
+const logger = require("../logger.js");
 
 const getAllProducts = (request, response) => {
+  logger.error();
   pool.query("SELECT * FROM products", (error, results) => {
     if (error) {
-      throw error;
+      logger.error(error);
+      response.status(500).send(error.message);
+    } else {
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
   });
 };
 
@@ -17,9 +21,11 @@ const getProductsById = (request, response) => {
     [id],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -35,9 +41,11 @@ const getProductsByCategory = (request, response) => {
     [category],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -51,11 +59,14 @@ const updateProductCategory = (request, response) => {
     [category_id, product_id],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        console.log(result);
+        response
+          .status(200)
+          .send(`Category successfully updated for product ${product_id}`);
       }
-      response
-        .status(200)
-        .send(`Category successfully updated for product ${product_id}`);
     }
   );
 };
@@ -69,9 +80,11 @@ const updateProduct = (request, response) => {
     [description, price, category_id, product_id],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        response.status(200).send(`Product modified with ID: ${product_id}`);
       }
-      response.status(200).send(`Product modified with ID: ${product_id}`);
     }
   );
 };
@@ -84,11 +97,13 @@ const createProduct = (request, response) => {
     [description, price, category_id],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        response
+          .status(201)
+          .send(`User added with ID: ${results.rows[0].product_id}`);
       }
-      response
-        .status(201)
-        .send(`User added with ID: ${results.rows[0].product_id}`);
     }
   );
 };
@@ -101,10 +116,11 @@ const deleteProduct = (request, response) => {
     [product_id],
     (error, results) => {
       if (error) {
-        throw error;
+        logger.error(error);
+        response.status(500).send(error.message);
+      } else {
+        response.status(200).send(`User deleted with ID: ${product_id}`);
       }
-      console.log(results);
-      response.status(200).send(`User deleted with ID: ${product_id}`);
     }
   );
 };
