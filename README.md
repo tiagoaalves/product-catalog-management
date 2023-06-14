@@ -67,6 +67,6 @@ docker-compose up tests
 
 ### API Endpoints
 
-Endpoint documentation is available on swagger, it is accessible via `~/doc`
+Endpoint documentation is available on swagger, it is accessible via `/doc`
 
 ![API Endpoints](https://i.imgur.com/mb0nSxA.png)
