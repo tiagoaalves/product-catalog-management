@@ -1,8 +1,8 @@
 const express = require("express");
 var bodyParser = require("body-parser");
 const app = express();
+const pool = require("./db.js");
 app.use(bodyParser.json());
-pool = require("./db.js");
 
 pool.connect(function (err) {
   if (err) throw err;
