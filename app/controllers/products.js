@@ -61,7 +61,6 @@ const updateProductCategory = (request, response) => {
         logger.error(error);
         response.status(500).send(error.message);
       } else {
-        console.log(result);
         response
           .status(200)
           .send(`Category successfully updated for product ${product_id}`);
