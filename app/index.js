@@ -10,7 +10,7 @@ pool.connect(function (err) {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World App");
+  res.send("Welcome to the Product Catalog Management API!");
 });
 
 app.use("/api/products", require("./routes/products"));
