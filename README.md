@@ -69,4 +69,6 @@ docker-compose up tests
 
 Endpoint documentation is available on swagger, it is accessible via `/doc`
 
+There is also a json with the postman collection `/product-catalog.postman_collection.json`
+
 ![API Endpoints](https://i.imgur.com/mb0nSxA.png)
